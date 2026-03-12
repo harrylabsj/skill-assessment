@@ -1,0 +1,11 @@
+reports/
+*.tmp
+*.log
+.DS_Store
+__pycache__/
+*.swp
+.env
+node_modules/
+debug/
+*.bak
+*.backup

@@ -1,0 +1,179 @@
+# 技能评估报告：{{ skill_name }}
+
+## 评估摘要
+- **评估时间**：{{ timestamp }}
+- **评估方式**：静态分析（选项1 - 轻量）
+- **综合评分**：{{ overall_score_stars }} ({{ overall_score }}/5)
+- **技能路径**：{{ skill_path }}
+- **评估用时**：{{ assessment_time }}秒
+
+## 分项评估
+
+### 1. 文档完整性 ({{ doc_score }}/5) {{ doc_stars }}
+**权重**: {{ doc_weight * 100 }}%
+
+{% if doc_issues %}
+**⚠️ 问题**：
+{% for issue in doc_issues %}
+- {{ issue }}
+{% endfor %}
+{% endif %}
+
+{% if doc_suggestions %}
+**💡 建议**：
+{% for suggestion in doc_suggestions %}
+- {{ suggestion }}
+{% endfor %}
+{% endif %}
+
+### 2. 代码规范性 ({{ code_score }}/5) {{ code_stars }}
+**权重**: {{ code_weight * 100 }}%
+
+{% if code_issues %}
+**⚠️ 问题**：
+{% for issue in code_issues %}
+- {{ issue }}
+{% endfor %}
+{% endif %}
+
+{% if code_suggestions %}
+**💡 建议**：
+{% for suggestion in code_suggestions %}
+- {{ suggestion }}
+{% endfor %}
+{% endif %}
+
+### 3. 配置友好度 ({{ config_score }}/5) {{ config_stars }}
+**权重**: {{ config_weight * 100 }}%
+
+{% if config_issues %}
+**⚠️ 问题**：
+{% for issue in config_issues %}
+- {{ issue }}
+{% endfor %}
+{% endif %}
+
+{% if config_suggestions %}
+**💡 建议**：
+{% for suggestion in config_suggestions %}
+- {{ suggestion }}
+{% endfor %}
+{% endif %}
+
+### 4. 维护活跃度 ({{ maintenance_score }}/5) {{ maintenance_stars }}
+**权重**: {{ maintenance_weight * 100 }}%
+
+{% if maintenance_issues %}
+**⚠️ 问题**：
+{% for issue in maintenance_issues %}
+- {{ issue }}
+{% endfor %}
+{% endif %}
+
+{% if maintenance_suggestions %}
+**💡 建议**：
+{% for suggestion in maintenance_suggestions %}
+- {{ suggestion }}
+{% endfor %}
+{% endif %}
+
+## 安全检查结果
+{% if security_issues %}
+**⚠️ 安全警告**：
+{% for issue in security_issues %}
+- {{ issue }}
+{% endfor %}
+{% else %}
+- ✅ 未发现严重安全问题
+{% endif %}
+
+## 改进优先级
+
+### 高优先级
+{% for suggestion in high_priority_suggestions %}
+- {{ suggestion }}
+{% else %}
+- 无高优先级改进项
+{% endfor %}
+
+### 中优先级
+{% for suggestion in medium_priority_suggestions %}
+- {{ suggestion }}
+{% else %}
+- 无中优先级改进项
+{% endfor %}
+
+### 低优先级
+{% for suggestion in low_priority_suggestions %}
+- {{ suggestion }}
+{% else %}
+- 无低优先级改进项
+{% endfor %}
+
+## 评估详情
+
+### 文件统计
+- 总文件数：{{ file_count }}个
+- 代码文件：{{ code_file_count }}个
+- 配置文件：{{ config_file_count }}个
+- 文档文件：{{ doc_file_count }}个
+
+### 问题统计
+- 严重问题：{{ critical_issue_count }}个
+- 一般问题：{{ normal_issue_count }}个  
+- 建议事项：{{ suggestion_count }}个
+
+### 评分明细
+| 维度 | 原始得分 | 权重 | 加权得分 |
+|------|----------|------|----------|
+| 文档完整性 | {{ doc_score }} | {{ doc_weight * 100 }}% | {{ doc_weighted_score }} |
+| 代码规范性 | {{ code_score }} | {{ code_weight * 100 }}% | {{ code_weighted_score }} |
+| 配置友好度 | {{ config_score }} | {{ config_weight * 100 }}% | {{ config_weighted_score }} |
+| 维护活跃度 | {{ maintenance_score }} | {{ maintenance_weight * 100 }}% | {{ maintenance_weighted_score }} |
+| **总计** | | | **{{ overall_score }}** |
+
+## 评估配置
+```yaml
+评估版本: {{ assessment_version }}
+权重配置:
+  文档完整性: {{ doc_weight }}
+  代码规范性: {{ code_weight }}
+  配置友好度: {{ config_weight }}
+  维护活跃度: {{ maintenance_weight }}
+```
+
+## 使用建议
+{% if overall_score >= 4.5 %}
+✅ **强烈推荐** - 该技能质量优秀，可以放心使用。
+{% elif overall_score >= 4.0 %}
+👍 **推荐使用** - 该技能质量良好，适合大多数场景。
+{% elif overall_score >= 3.5 %}
+⚠️ **谨慎使用** - 该技能质量中等，建议测试后再投入生产。
+{% elif overall_score >= 3.0 %}
+🔍 **需要改进** - 该技能质量一般，建议先评估问题再决定。
+{% else %}
+❌ **不推荐** - 该技能质量较差，存在明显问题。
+{% endif %}
+
+## 附录
+
+### 评估规则摘要
+1. **文档完整性**：检查 SKILL.md 完整性、必填章节、示例质量
+2. **代码规范性**：检查文件结构、安全风险、错误处理、工具使用
+3. **配置友好度**：检查默认配置、环境变量支持、错误提示
+4. **维护活跃度**：检查版本号、更新记录、最后更新时间、依赖声明
+
+### 星级说明
+- ★★★★★ (4.5-5.0): 优秀 - 质量很高，推荐使用
+- ★★★★☆ (4.0-4.4): 良好 - 质量良好，适合大多数场景  
+- ★★★☆☆ (3.5-3.9): 中等 - 质量中等，需要测试
+- ★★☆☆☆ (3.0-3.4): 一般 - 质量一般，建议改进
+- ★☆☆☆☆ (2.5-2.9): 较差 - 质量较差，谨慎使用
+- ☆☆☆☆☆ (<2.5): 不推荐 - 质量差，存在严重问题
+
+---
+
+**提示**：本报告基于静态分析生成，仅供参考。实际使用体验可能因环境和需求而异。
+
+**生成工具**: skill-assessment v{{ tool_version }}  
+**报告ID**: {{ report_id }}

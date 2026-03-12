@@ -1,4 +1,17 @@
-# Skill: skill-assessment
+---
+name: skill-assessment
+description: OpenClaw技能质量评估工具 - 四维度静态分析
+openclaw:
+  requires:
+    bash: ">=4.0"
+    jq: ">=1.6"
+version: 1.0.0
+author: 姜海东
+license: MIT
+status: 功能完整
+categories: [utilities, development, quality]
+---
+
 
 ## 概述
 **skill-assessment** 是一个轻量级静态分析工具，用于评估 OpenClaw 技能的质量。它不执行任何代码，仅通过文件分析和元数据检查，从**文档完整性**、**代码规范性**、**配置友好度**、**维护活跃度**四个维度对技能进行评分，帮助用户快速筛选技能，为开发者提供改进方向。
